@@ -6,6 +6,8 @@ import ForProducts.Product.Product;
 import ForProducts.Product.Type_Product;
 import ForProducts.Product.Type_of_Diet;
 import Human.Human;
+import Human.SingletoneHuman;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.*;
 
@@ -15,7 +17,9 @@ public abstract class One_Meal implements Iterable<Product>
     private float max_protein, max_fats, max_carbohydrates, max_kilocalories;
     private List<Product> products = new ArrayList<>();
 
-    public abstract void Create_Meal(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor);
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+
+    public abstract void Create_Meal(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor, AnnotationConfigApplicationContext context);
 
     protected void CreatePlan(Directory directory, List<One_Meal> meals_in_day)
     {
@@ -47,8 +51,8 @@ public abstract class One_Meal implements Iterable<Product>
         fats=0;
         carbohydrates=0;
         kilocalories =0;
-
-        if(!Check_on_Special_Diet(Human.GetInstance().getTypeDiet())){
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
+        if(!Check_on_Special_Diet(context.getBean(Human.class).getTypeDiet())){
             for (int i=0; i<products.size();i++){
                 if (products.get(i).getType_product() == Type_Product.Garnish){
                     product_gramm =(rand.nextFloat(max_carbohydrates*0.7f,

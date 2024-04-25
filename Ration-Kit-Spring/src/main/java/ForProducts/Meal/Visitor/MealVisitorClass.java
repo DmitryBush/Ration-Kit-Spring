@@ -2,13 +2,15 @@ package ForProducts.Meal.Visitor;
 
 import ForProducts.Meal.One_Meal;
 import Human.Human;
+import Human.SingletoneHuman;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class MealVisitorClass implements MealVisitor
 {
 
     @Override
-    public void CalculateBreakfast(One_Meal meal) {
-        var _Human = Human.GetInstance();
+    public void CalculateBreakfast(One_Meal meal,AnnotationConfigApplicationContext context) {
+        var _Human = context.getBean(Human.class);
         float max_protein, max_carbohydrates, max_fats;
 
         meal.setMax_protein(max_protein = _Human.getProtein() * 0.3f);
@@ -19,8 +21,8 @@ public class MealVisitorClass implements MealVisitor
     }
 
     @Override
-    public void CalculateLunch(One_Meal meal) {
-        var _Human = Human.GetInstance();
+    public void CalculateLunch(One_Meal meal,AnnotationConfigApplicationContext context) {
+        var _Human = context.getBean(Human.class);
         float max_protein, max_carbohydrates, max_fats;
 
         meal.setMax_protein(max_protein = _Human.getProtein() * 0.4f);
@@ -31,7 +33,7 @@ public class MealVisitorClass implements MealVisitor
     }
 
     @Override
-    public void CalculateDinner(One_Meal meal) {
-        CalculateBreakfast(meal);
+    public void CalculateDinner(One_Meal meal,AnnotationConfigApplicationContext context) {
+        CalculateBreakfast(meal,context);
     }
 }

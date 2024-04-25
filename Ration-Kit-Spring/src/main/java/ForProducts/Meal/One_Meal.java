@@ -17,7 +17,9 @@ public abstract class One_Meal implements Iterable<Product>
     private float max_protein, max_fats, max_carbohydrates, max_kilocalories;
     private List<Product> products = new ArrayList<>();
 
-    public abstract void Create_Meal(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor);
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+
+    public abstract void Create_Meal(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor, AnnotationConfigApplicationContext context);
 
     protected void CreatePlan(Directory directory, List<One_Meal> meals_in_day)
     {

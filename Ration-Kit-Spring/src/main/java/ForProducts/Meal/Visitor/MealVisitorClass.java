@@ -7,9 +7,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class MealVisitorClass implements MealVisitor
 {
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
+
     @Override
-    public void CalculateBreakfast(One_Meal meal) {
+    public void CalculateBreakfast(One_Meal meal,AnnotationConfigApplicationContext context) {
         var _Human = context.getBean(Human.class);
         float max_protein, max_carbohydrates, max_fats;
 
@@ -21,7 +21,7 @@ public class MealVisitorClass implements MealVisitor
     }
 
     @Override
-    public void CalculateLunch(One_Meal meal) {
+    public void CalculateLunch(One_Meal meal,AnnotationConfigApplicationContext context) {
         var _Human = context.getBean(Human.class);
         float max_protein, max_carbohydrates, max_fats;
 
@@ -33,7 +33,7 @@ public class MealVisitorClass implements MealVisitor
     }
 
     @Override
-    public void CalculateDinner(One_Meal meal) {
-        CalculateBreakfast(meal);
+    public void CalculateDinner(One_Meal meal,AnnotationConfigApplicationContext context) {
+        CalculateBreakfast(meal,context);
     }
 }

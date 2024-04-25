@@ -15,14 +15,16 @@ public class DietPlan {
     private final List<One_Meal> Meals_in_day = new ArrayList<>();
     float day_protein, day_fats, day_carbonohydrates , day_kilocalories;
     Type_of_Diet _Type_Diet;
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();;
 
     public void Create_Day_Diet(Directory directory,AnnotationConfigApplicationContext context){    // создание вариантов питания на день в зависимости от типа диеты
+        System.out.println(context);
 
+        this.context = context;
         CreatePlan();
-        //this.context = context;
+
         for(int i=0; i<Meals_in_day.size(); i++){
-            Meals_in_day.get(i).Create_Meal(directory, Meals_in_day, new MealVisitorClass());
+            Meals_in_day.get(i).Create_Meal(directory, Meals_in_day, new MealVisitorClass(), this.context);
             day_protein +=Meals_in_day.get(i).getProtein();
             day_fats +=Meals_in_day.get(i).getFats();
             day_carbonohydrates += Meals_in_day.get(i).getCarbohydrates();
@@ -33,7 +35,7 @@ public class DietPlan {
 
     private void CreatePlan()
     {
-
+        System.out.println(context);
         _Type_Diet = context.getBean(Human.class).getTypeDiet();
         Handler handler = new RegularPlan();
         Handler handler1 = new Plan8();

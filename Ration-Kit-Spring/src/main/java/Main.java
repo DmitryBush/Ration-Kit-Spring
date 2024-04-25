@@ -21,6 +21,7 @@ public class Main
     public static DietPlan _diet_plan = new DietPlan();    // план питания на день
 
     static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
+
     public static void main(String[] args){
 
         Enter_Data_For_Person();
@@ -74,6 +75,7 @@ public class Main
                 break;
         }
         mainHuman = context.getBean(Human.class);
+        System.out.println(context);
         mainHuman.SetHumanParametres(age,height,weight,activityCoefficient,gender,dietplane);
 
     }

@@ -64,7 +64,6 @@ public class DietPlan {
         System.out.println("Общее количество ккал за приём день: " + day_kilocalories+ "\n\n\n");
     }
 
-
     void Explanations_of_intermittent_fasting() // небольшой список советов
     {
         PlanHandler regular = new RegularPlan();

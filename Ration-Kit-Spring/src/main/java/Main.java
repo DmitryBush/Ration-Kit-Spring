@@ -1,6 +1,5 @@
 import Database.Directory;
 import ForProducts.Product.DietPlan;
-
 import ForProducts.Product.Type_of_Diet;
 import Human.Gender;
 import Human.GenderException;
@@ -8,7 +7,7 @@ import Human.Human;
 import Human.SingletoneHuman;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class Main
 {
@@ -34,9 +33,6 @@ public class Main
         Integer age = 0, Opredelitel_Mode_Life = 0;
         Float height = 0.f, weight = 0.f;
         float activityCoefficient;
-
-
-
         Gender gender = Gender.Male;
         Type_of_Diet dietplane = Type_of_Diet.diet_regular;
 
@@ -175,4 +171,5 @@ public class Main
             }
         }
     }
+
 }

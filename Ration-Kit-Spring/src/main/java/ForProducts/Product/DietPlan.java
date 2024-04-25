@@ -4,6 +4,9 @@ import ForProducts.Meal.*;
 import ForProducts.Meal.Visitor.MealVisitorClass;
 import ForProducts.Product.Chain.*;
 import Human.Human;
+import Human.SingletoneHuman;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +15,12 @@ public class DietPlan {
     private final List<One_Meal> Meals_in_day = new ArrayList<>();
     float day_protein, day_fats, day_carbonohydrates , day_kilocalories;
     Type_of_Diet _Type_Diet;
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
 
-    public void Create_Day_Diet(Directory directory){    // создание вариантов питания на день в зависимости от типа диеты
+    public void Create_Day_Diet(Directory directory,AnnotationConfigApplicationContext context){    // создание вариантов питания на день в зависимости от типа диеты
+
         CreatePlan();
-
+        //this.context = context;
         for(int i=0; i<Meals_in_day.size(); i++){
             Meals_in_day.get(i).Create_Meal(directory, Meals_in_day, new MealVisitorClass());
             day_protein +=Meals_in_day.get(i).getProtein();
@@ -28,7 +33,8 @@ public class DietPlan {
 
     private void CreatePlan()
     {
-        _Type_Diet = Human.GetInstance().getTypeDiet();
+
+        _Type_Diet = context.getBean(Human.class).getTypeDiet();
         Handler handler = new RegularPlan();
         Handler handler1 = new Plan8();
         Handler handler2 = new Plan4();
@@ -70,4 +76,7 @@ public class DietPlan {
 
         regular.Explain(_Type_Diet);
     }
+
+
+
 }

@@ -5,22 +5,26 @@ import ForProducts.Product.Type_of_Diet;
 import Human.Gender;
 import Human.GenderException;
 import Human.Human;
+import Human.SingletoneHuman;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.*;
 
 public class Main
 {
+
+
     static Scanner _scanner = new Scanner(System.in);
     public static Human mainHuman;    // создаём параметры пользователя для которого нужна диета
     public static Directory directory = new Directory();      //для получения списков продуктов из базы данных
 
     public static DietPlan _diet_plan = new DietPlan();    // план питания на день
 
-
+    static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
     public static void main(String[] args){
 
         Enter_Data_For_Person();
-        _diet_plan.Create_Day_Diet(directory);
+        _diet_plan.Create_Day_Diet(directory,context);
         _diet_plan.Show_Ration_OnDay();
     }
 
@@ -29,6 +33,7 @@ public class Main
         Integer age = 0, Opredelitel_Mode_Life = 0;
         Float height = 0.f, weight = 0.f;
         float activityCoefficient;
+
 
 
         Gender gender = Gender.Male;
@@ -68,7 +73,9 @@ public class Main
                 activityCoefficient = 1.8f;
                 break;
         }
-        mainHuman = Human.Human(age,height,weight, activityCoefficient, gender, dietplane);
+        mainHuman = context.getBean(Human.class);
+        mainHuman.SetHumanParametres(age,height,weight,activityCoefficient,gender,dietplane);
+
     }
 
     private static Object EnterFromKeyboard(String message, String datatype)

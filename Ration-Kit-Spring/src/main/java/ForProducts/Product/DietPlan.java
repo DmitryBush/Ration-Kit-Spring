@@ -21,7 +21,8 @@ public class DietPlan {
         CreatePlan();
 
         for(int i=0; i<Meals_in_day.size(); i++){
-            Meals_in_day.get(i).Create_Meal(directory, Meals_in_day, new MealVisitorClass(), this.context);
+            context.getBean(Meals_in_day.get(i).getClass()).Create_Meal(directory, Meals_in_day, new MealVisitorClass(), this.context);
+
             day_protein +=Meals_in_day.get(i).getProtein();
             day_fats +=Meals_in_day.get(i).getFats();
             day_carbonohydrates += Meals_in_day.get(i).getCarbohydrates();
@@ -40,8 +41,7 @@ public class DietPlan {
 
         handler.setNext(handler1);
         handler1.setNext(handler2);
-
-        handler.handle(_Type_Diet, Meals_in_day);
+        handler.handle(_Type_Diet, Meals_in_day, context);
 
     }
 

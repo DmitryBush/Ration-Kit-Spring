@@ -4,10 +4,11 @@ import ForProducts.Product.TypeOfDiet;
 import Human.Gender;
 import Human.GenderException;
 import Human.Human;
-import Human.SingletoneHuman;
+import Human.Config;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Scanner;
+
 
 public class Main
 {
@@ -19,7 +20,7 @@ public class Main
 
     public static DietPlan _diet_plan = new DietPlan();    // план питания на день
 
-    static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
+    static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
 
     public static void main(String[] args){
 
@@ -72,7 +73,7 @@ public class Main
                 activityCoefficient = 1.8f;
                 break;
         }
-        System.out.println("GG");
+
         mainHuman = context.getBean(Human.class);
         mainHuman.SetHumanParametres(age,height,weight,activityCoefficient,gender,dietplane);
 

@@ -18,8 +18,6 @@ dependencies {
     implementation("org.springframework:spring-aop:6.1.6")
     implementation("org.springframework:spring-core: 6.1.6")
     implementation("org.springframework:spring-beans: 6.1.6")
-    implementation("org.springframework:spring-context-support: 6.1.6")
-
 
     implementation("jakarta.annotation:jakarta.annotation-api:3.0.0")
 

@@ -24,7 +24,9 @@ public class Main
     public static void main(String[] args){
 
         Enter_Data_For_Person();
+
         _diet_plan.Create_Day_Diet(directory,context);
+
         _diet_plan.Show_Ration_OnDay();
     }
 
@@ -70,6 +72,7 @@ public class Main
                 activityCoefficient = 1.8f;
                 break;
         }
+        System.out.println("GG");
         mainHuman = context.getBean(Human.class);
         mainHuman.SetHumanParametres(age,height,weight,activityCoefficient,gender,dietplane);
 

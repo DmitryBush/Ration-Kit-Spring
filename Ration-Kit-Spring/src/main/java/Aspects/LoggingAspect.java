@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
+
 import java.util.Optional;
 
 
@@ -33,9 +34,12 @@ public class LoggingAspect {
      * ВАЖНО!!! Название самого Advice не играет никакой роли! Важен его Pointcut!!!
      */
 
-    @Before("execution(public void getBook())")
-    public void beforeGetBookAdvice() {
-        System.out.println("beforeGetBookAdvice: попытка получить книгу.");
+
+
+    @Before("execution(public void CalculateBreakfast(One_Meal meal,AnnotationConfigApplicationContext context))")
+    public void beforeCreateBreakfastMeal() {
+        System.out.println("beforeCreateBreakfastMeal: Подбор продуктов для завтрака.");
+
     }
 
     /**
@@ -47,7 +51,39 @@ public class LoggingAspect {
      * Для разрешения данного конфликта явно укажем declaring-type-pattern? (класс, которому
      * принадлжеит метод)
      */
-    @AfterReturning("execution(public void aop.UniLibrary.returnBook())")
+
+    @Before("execution(public void CalculateLunch(One_Meal meal,AnnotationConfigApplicationContext context))")
+    public void beforeCreateLunchMeal() {
+        System.out.println("beforeCreateLunchMeal: Подбор продуктов для обеда.");
+
+    }
+
+    /**
+     * Advice, помеченный @AfterReturning выполняется только после нормального
+     * окончания метода с основной логикой.
+     * <p>
+     * ВАЖНО!!! Название самого Advice не играет никакой роли! Важен его Pointcut!!!
+     * execution(public void returnBook()) будет работать для обоих библиотек!!!
+     * Для разрешения данного конфликта явно укажем declaring-type-pattern? (класс, которому
+     * принадлжеит метод)
+     */
+
+    @Before("execution(public void CalculateDinner(One_Meal meal,AnnotationConfigApplicationContext context))")
+    public void beforeCreateDinnerMeal() {
+        System.out.println("beforeCreateDinnerMeal: Подбор продуктов для ужина.");
+    }
+
+    /**
+     * Advice, помеченный @AfterReturning выполняется только после нормального
+     * окончания метода с основной логикой.
+     * <p>
+     * ВАЖНО!!! Название самого Advice не играет никакой роли! Важен его Pointcut!!!
+     * execution(public void returnBook()) будет работать для обоих библиотек!!!
+     * Для разрешения данного конфликта явно укажем declaring-type-pattern? (класс, которому
+     * принадлжеит метод)
+     */
+
+    /* @AfterReturning("execution(public void aop.UniLibrary.returnBook())")
     public void afterUniReturnBookAdvice() {
         System.out.println("afterUniReturnBookAdvice: книга возвращена в UniLibrary");
     }
@@ -61,7 +97,7 @@ public class LoggingAspect {
      * Для разрешения данного конфликта явно укажем declaring-type-pattern? (класс, которому
      * принадлжеит метод)
      */
-    @AfterReturning("execution(public void aop.SchoolLibrary.returnBook())")
+    /*@AfterReturning("execution(public void aop.SchoolLibrary.returnBook())")
     public void afterSchoolReturnBookAdvice() {
         System.out.println("afterSchoolReturnBookAdvice: книга возвращена в SchoolLibrary");
     }
@@ -78,24 +114,24 @@ public class LoggingAspect {
      * 3. Предпринять какие-либо действия, если из target метода выбрасывается исключение.
      *      исключения также можно перехватывать и обрабатывать.
      */
-    @Around("execution(public void giveBookToPerson(String, aop.Person))")
+    /*@Around("execution(public void giveBookToPerson(String, aop.Person))")
     public Object AroundDiveBookToPersonAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         //Действия до выполнения метода!
         //Перехват параметров, переданных в основной метод.
         Object[] args = proceedingJoinPoint.getArgs();
 
         //Преобразование параметров по нужным типам
-        String bookName = object2String(args[0]).orElse("Неизвестный");
-        Person person = object2Person(args[1]).orElseThrow();
+       // String bookName = object2String(args[0]).orElse("Неизвестный");
+      //  Person person = object2Person(args[1]).orElseThrow();
 
-        System.out.println(person + " пытается получить книгу " + bookName);
+        //System.out.println(person + " пытается получить книгу " + bookName);
 
         //Запуск работы основного метода и получение его результатов работы
         //Здесь мы также можем что-то изменить в результатах работы метода
-        Object targetMethodResult = proceedingJoinPoint.proceed();
+        //Object targetMethodResult = proceedingJoinPoint.proceed();
 
         //Действия после выполнения метода!
-        System.out.println(person + " получил книгу " + bookName + " без проблем.");
+       // System.out.println(person + " получил книгу " + bookName + " без проблем.");
 
         //К сожелению и параметры и возвращаемый тип перехватывается в виде типа Object
         //из-за чего приходить городить проверки и преобразования...
@@ -107,22 +143,22 @@ public class LoggingAspect {
         //Возвращаем ранее полученне результаты работы метода
         //Это обязательное действие, иначе результаты потеряются
         //и скорее всего у вас где-то что-то упадет, выкинет exception и тд и тп...
-        return targetMethodResult;
+         return null;//targetMethodResult;
     }
 
     /**
      * Вспомогательный метод приведения объекта к строке
      */
-    public Optional<String> object2String(Object obj) {
+   /* public Optional<String> object2String(Object obj) {
         if (obj instanceof String) return Optional.of((String) obj);
         return Optional.empty();
-    }
+    }*/
 
     /**
      * Вспомогательный метод приведения объекта к человеку
      */
-    public Optional<Person> object2Person(Object obj) {
+    /*public Optional<Person> object2Person(Object obj) {
         if (obj instanceof Person) return Optional.of((Person) obj);
         return Optional.empty();
-    }
+    }*/
 }

@@ -32,6 +32,7 @@ public class DietPlan {
 
     private void CreatePlan()
     {
+
         _Type_Diet = context.getBean(Human.class).getTypeDiet();
         Handler handler = new RegularPlan();
         Handler handler1 = new Plan8();
@@ -41,6 +42,7 @@ public class DietPlan {
         handler1.setNext(handler2);
 
         handler.handle(_Type_Diet, Meals_in_day);
+
     }
 
    public void Show_Ration_OnDay(){     // показ всех продуктов используемых в дневном рационе

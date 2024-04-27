@@ -2,7 +2,6 @@ package ForProducts.Meal.Visitor;
 
 import ForProducts.Meal.One_Meal;
 import Human.Human;
-import Human.SingletoneHuman;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class MealVisitorClass implements MealVisitor

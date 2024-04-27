@@ -5,19 +5,25 @@ import ForProducts.Meal.Dinner;
 import ForProducts.Meal.Lunch;
 import ForProducts.Meal.One_Meal;
 import ForProducts.Product.TypeOfDiet;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
 
 public class Plan8 extends PlanHandler
 {
+
     public Plan8() {
         super(TypeOfDiet.diet_16_8);
     }
     @Override
-    protected void CreatePlan(List<One_Meal> dayMeals) {
-        dayMeals.add(new Breakfast());
-        dayMeals.add(new Lunch());
-        dayMeals.add(new Dinner());
+    protected void CreatePlan(List<One_Meal> dayMeals,  AnnotationConfigApplicationContext context) {
+        Breakfast breakfast = context.getBean(Breakfast.class);
+        Lunch lunch = context.getBean(Lunch.class);
+        Dinner dinner = context.getBean(Dinner.class);
+        dayMeals.add(breakfast);
+        dayMeals.add(lunch);
+        dayMeals.add(dinner);
+
     }
 
     @Override
@@ -27,4 +33,6 @@ public class Plan8 extends PlanHandler
                 "Уменьшите время между приёмами пищи" + "Вы должны пить как можно больше воды! \n" +
                 "Это поможет продержаться во время голодания. Вода помогает унять чувство голода.");
     }
+
+
 }

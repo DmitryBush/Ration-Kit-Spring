@@ -102,7 +102,7 @@ public class Main
                     break;
                 }
 
-                case "Type_of_Diet":
+                case "TypeOfDiet":
                 {
                     if (_scanner.hasNextInt())
                     {

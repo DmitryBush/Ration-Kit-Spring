@@ -3,8 +3,8 @@ package ForProducts.Meal;
 import Database.Directory;
 import ForProducts.Meal.Visitor.MealVisitor;
 import ForProducts.Product.Product;
-import ForProducts.Product.Type_Product;
-import ForProducts.Product.Type_of_Diet;
+import ForProducts.Product.TypeProduct;
+import ForProducts.Product.TypeofDiet;
 import Human.Human;
 import Human.SingletoneHuman;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -54,7 +54,7 @@ public abstract class One_Meal implements Iterable<Product>
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
         if(!Check_on_Special_Diet(context.getBean(Human.class).getTypeDiet())){
             for (int i=0; i<products.size();i++){
-                if (products.get(i).getType_product() == Type_Product.Garnish){
+                if (products.get(i).getType_product() == TypeProduct.Garnish){
                     product_gramm =(rand.nextFloat(max_carbohydrates*0.7f,
                             max_carbohydrates*0.8f)/(products.get(i).getCarbohydrates() /100));
                     if(product_gramm > products.get(i).getMax_gramm()){
@@ -63,7 +63,7 @@ public abstract class One_Meal implements Iterable<Product>
                     products.get(i).setCur_count_gramm(product_gramm);
                     Calculate_PFC();
                 }
-                else if (products.get(i).getType_product() == Type_Product.Basic){
+                else if (products.get(i).getType_product() == TypeProduct.Basic){
                     product_gramm = (max_protein - protein) / (products.get(i).getProtein() /100);
                     if(product_gramm > products.get(i).getMax_gramm()){
                         product_gramm = products.get(i).getMax_gramm();
@@ -71,7 +71,7 @@ public abstract class One_Meal implements Iterable<Product>
                     products.get(i).setCur_count_gramm(product_gramm);
                     Calculate_PFC();
                 }
-                else if (products.get(i).getType_product() == Type_Product.Addition){
+                else if (products.get(i).getType_product() == TypeProduct.Addition){
                     product_gramm = (max_kilocalories-kilocalories) /
                             ((products.get(2).getProtein() *4 /100)
                                     + (products.get(i).getCarbohydrates() *4 /100)
@@ -86,7 +86,7 @@ public abstract class One_Meal implements Iterable<Product>
         }
         else {
             for (int i=0; i<products.size();i++){
-                if (products.get(i).getType_product() == Type_Product.Basic){
+                if (products.get(i).getType_product() == TypeProduct.Basic){
                     product_gramm =(rand.nextFloat(max_protein*0.9f,
                             max_protein*0.95f)/(products.get(i).getProtein() /100));
                     if(product_gramm > products.get(i).getMax_gramm()){
@@ -96,7 +96,7 @@ public abstract class One_Meal implements Iterable<Product>
                     Calculate_PFC();
                 }
 
-                else if (products.get(i).getType_product() == Type_Product.Garnish){
+                else if (products.get(i).getType_product() == TypeProduct.Garnish){
                     product_gramm =(rand.nextFloat(max_carbohydrates*0.7f, max_carbohydrates*0.8f)
                             /(products.get(i).getCarbohydrates() /100));
                     if(product_gramm > products.get(i).getMax_gramm()){
@@ -106,7 +106,7 @@ public abstract class One_Meal implements Iterable<Product>
                     Calculate_PFC();
                 }
 
-                else if (products.get(i).getType_product() == Type_Product.Addition){
+                else if (products.get(i).getType_product() == TypeProduct.Addition){
                     product_gramm = (max_kilocalories-kilocalories) / ((products.get(2).getProtein() *4 /100)
                             + (products.get(i).getCarbohydrates() *4 /100) + (products.get(i).getFats() *9 /100));
                     if(product_gramm > products.get(i).getMax_gramm()){
@@ -159,9 +159,9 @@ public abstract class One_Meal implements Iterable<Product>
         return product;
     }
 
-    Boolean Check_on_Special_Diet(Type_of_Diet diet)
+    Boolean Check_on_Special_Diet(TypeofDiet diet)
     {
-        return diet != Type_of_Diet.diet_regular && diet != Type_of_Diet.diet_16_8;
+        return diet != TypeofDiet.diet_regular && diet != TypeofDiet.diet_16_8;
     }
 
     @Override

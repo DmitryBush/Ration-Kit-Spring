@@ -3,7 +3,7 @@ package Human;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ForProducts.Product.Type_of_Diet;
+import ForProducts.Product.TypeofDiet;
 
 @Scope ("singleton")
 @Component ("human")
@@ -12,14 +12,14 @@ public class Human
 
     // Calculated ration values
     private float kilocalories, protein, fats, carbohydrates;
-    private Type_of_Diet _Type_Diet;
+    private TypeofDiet _Type_Diet;
 
     public Human(){
         kilocalories=0;
         protein=0;
         fats=0;
         carbohydrates=0;
-        Type_of_Diet dietType = null; // Пользователь укажет тип диеты
+        TypeofDiet dietType = null; // Пользователь укажет тип диеты
 
 
     }
@@ -36,7 +36,7 @@ public class Human
     }
 
     public Human SetHumanParametres(int age, float height, float weight,
-                                    float activityCoefficient, Gender gender, Type_of_Diet _Type_Diet)
+                                    float activityCoefficient, Gender gender, TypeofDiet _Type_Diet)
     {
         this._Type_Diet = _Type_Diet;
         kilocalories = CalculateKilocalories(age, height, weight, activityCoefficient, gender);
@@ -91,7 +91,7 @@ public class Human
         return carbohydrates;
     }
 
-    public Type_of_Diet getTypeDiet() {
+    public TypeofDiet getTypeDiet() {
         return _Type_Diet;
     }
 }

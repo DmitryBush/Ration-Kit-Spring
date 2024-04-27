@@ -4,14 +4,14 @@ import ForProducts.Meal.Breakfast;
 import ForProducts.Meal.Dinner;
 import ForProducts.Meal.Lunch;
 import ForProducts.Meal.One_Meal;
-import ForProducts.Product.Type_of_Diet;
+import ForProducts.Product.TypeofDiet;
 
 import java.util.List;
 
 public class RegularPlan extends PlanHandler
 {
     public RegularPlan() {
-        super(Type_of_Diet.diet_regular);
+        super(TypeofDiet.diet_regular);
     }
 
     @Override

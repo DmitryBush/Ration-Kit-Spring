@@ -4,8 +4,6 @@ import ForProducts.Meal.*;
 import ForProducts.Meal.Visitor.MealVisitorClass;
 import ForProducts.Product.Chain.*;
 import Human.Human;
-import Human.SingletoneHuman;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.ArrayList;
@@ -14,11 +12,10 @@ import java.util.List;
 public class DietPlan {
     private final List<One_Meal> Meals_in_day = new ArrayList<>();
     float day_protein, day_fats, day_carbonohydrates , day_kilocalories;
-    Type_of_Diet _Type_Diet;
+    TypeofDiet _Type_Diet;
     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();;
 
-    public void Create_Day_Diet(Directory directory,AnnotationConfigApplicationContext context){    // создание вариантов питания на день в зависимости от типа диеты
-        System.out.println(context);
+    public void Create_Day_Diet(Directory directory,AnnotationConfigApplicationContext context){    // создание вариантов питания на день в зависимости от типа диет
 
         this.context = context;
         CreatePlan();
@@ -35,7 +32,6 @@ public class DietPlan {
 
     private void CreatePlan()
     {
-        System.out.println(context);
         _Type_Diet = context.getBean(Human.class).getTypeDiet();
         Handler handler = new RegularPlan();
         Handler handler1 = new Plan8();

@@ -3,14 +3,14 @@ package ForProducts.Product.Chain;
 import ForProducts.Meal.Dinner;
 import ForProducts.Meal.Lunch;
 import ForProducts.Meal.One_Meal;
-import ForProducts.Product.Type_of_Diet;
+import ForProducts.Product.TypeofDiet;
 
 import java.util.List;
 
 public class Plan4 extends PlanHandler
 {
     public Plan4() {
-        super(Type_of_Diet.diet_20_4);
+        super(TypeofDiet.diet_20_4);
     }
     @Override
     protected void CreatePlan(List<One_Meal> dayMeals) {

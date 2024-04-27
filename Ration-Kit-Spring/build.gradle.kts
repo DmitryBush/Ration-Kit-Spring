@@ -15,6 +15,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     implementation("org.springframework:spring-context:6.1.6")
     implementation("org.postgresql:postgresql:42.7.3")
+    implementation("org.springframework:spring-aop:6.1.6")
 }
 
 tasks.test {

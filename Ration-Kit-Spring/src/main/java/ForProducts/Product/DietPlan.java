@@ -12,7 +12,7 @@ import java.util.List;
 public class DietPlan {
     private final List<One_Meal> Meals_in_day = new ArrayList<>();
     float day_protein, day_fats, day_carbonohydrates , day_kilocalories;
-    TypeofDiet _Type_Diet;
+    TypeOfDiet _Type_Diet;
     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();;
 
     public void Create_Day_Diet(Directory directory,AnnotationConfigApplicationContext context){    // создание вариантов питания на день в зависимости от типа диет

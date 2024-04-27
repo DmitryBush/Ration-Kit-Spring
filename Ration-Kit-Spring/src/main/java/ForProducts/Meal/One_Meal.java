@@ -4,7 +4,7 @@ import Database.Directory;
 import ForProducts.Meal.Visitor.MealVisitor;
 import ForProducts.Product.Product;
 import ForProducts.Product.TypeProduct;
-import ForProducts.Product.TypeofDiet;
+import ForProducts.Product.TypeOfDiet;
 import Human.Human;
 import Human.SingletoneHuman;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -159,9 +159,9 @@ public abstract class One_Meal implements Iterable<Product>
         return product;
     }
 
-    Boolean Check_on_Special_Diet(TypeofDiet diet)
+    Boolean Check_on_Special_Diet(TypeOfDiet diet)
     {
-        return diet != TypeofDiet.diet_regular && diet != TypeofDiet.diet_16_8;
+        return diet != TypeOfDiet.diet_regular && diet != TypeOfDiet.diet_16_8;
     }
 
     @Override

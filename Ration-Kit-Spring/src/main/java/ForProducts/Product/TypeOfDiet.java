@@ -1,6 +1,6 @@
 package ForProducts.Product;
 
-public enum TypeofDiet
+public enum TypeOfDiet
 {
     diet_regular,
     diet_16_8,

@@ -1,6 +1,6 @@
 import Database.Directory;
 import ForProducts.Product.DietPlan;
-import ForProducts.Product.TypeofDiet;
+import ForProducts.Product.TypeOfDiet;
 import Human.Gender;
 import Human.GenderException;
 import Human.Human;
@@ -36,7 +36,7 @@ public class Main
         Float height = 0.f, weight = 0.f;
         float activityCoefficient;
         Gender gender = Gender.Male;
-        TypeofDiet dietplane = TypeofDiet.diet_regular;
+        TypeOfDiet dietplane = TypeOfDiet.diet_regular;
 
         age = (Integer) EnterFromKeyboard("Сколько тебе лет:", age.getClass().getSimpleName());
         height = (Float) EnterFromKeyboard("Введи рост", height.getClass().getSimpleName());
@@ -52,7 +52,7 @@ public class Main
                 "2) Женщина", gender.getClass().getSimpleName());
 
 
-        dietplane = (TypeofDiet) EnterFromKeyboard("Определите нужный вам план диеты:\n" +
+        dietplane = (TypeOfDiet) EnterFromKeyboard("Определите нужный вам план диеты:\n" +
                 "1) Обычный режим питания\n" + "2) Диета 15/9 \n" + "3) Диета 20/4\n" + "4) Диета 24/0\n"
                 , dietplane.getClass().getSimpleName());
 
@@ -112,20 +112,20 @@ public class Main
                             {
                                 case 1 ->
                                 {
-                                    return TypeofDiet.diet_regular;
+                                    return TypeOfDiet.diet_regular;
                                 }
                                 case 2 ->
                                 {
-                                    return TypeofDiet.diet_16_8;
+                                    return TypeOfDiet.diet_16_8;
                                 }
 
                                 case 3 ->
                                 {
-                                    return TypeofDiet.diet_20_4;
+                                    return TypeOfDiet.diet_20_4;
                                 }
                                 case 4 ->
                                 {
-                                    return TypeofDiet.diet_24_0;
+                                    return TypeOfDiet.diet_24_0;
                                 }
                                 default -> throw new RuntimeException("Неизвестная интервальная диета\n" +
                                         "Попробуйте ввести еще раз");

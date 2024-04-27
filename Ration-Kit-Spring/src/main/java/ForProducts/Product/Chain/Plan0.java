@@ -1,14 +1,14 @@
 package ForProducts.Product.Chain;
 
 import ForProducts.Meal.One_Meal;
-import ForProducts.Product.TypeofDiet;
+import ForProducts.Product.TypeOfDiet;
 
 import java.util.List;
 
 public class Plan0 extends PlanHandler
 {
     public Plan0() {
-        super(TypeofDiet.diet_24_0);
+        super(TypeOfDiet.diet_24_0);
     }
 
     @Override

@@ -1,24 +1,24 @@
 package ForProducts.Product.Chain;
 
 import ForProducts.Meal.One_Meal;
-import ForProducts.Product.TypeofDiet;
+import ForProducts.Product.TypeOfDiet;
 
 import java.util.List;
 import java.util.Objects;
 
 public abstract class PlanHandler implements Handler
 {
-    private final TypeofDiet type;
+    private final TypeOfDiet type;
     private Handler nextChain;
 
-    public PlanHandler(TypeofDiet type)
+    public PlanHandler(TypeOfDiet type)
     {
         this.type = type;
     }
     @Override
     public void setNext(Handler handler) {nextChain = handler;}
     @Override
-    public void handle(TypeofDiet type, List<One_Meal> dayMeals)
+    public void handle(TypeOfDiet type, List<One_Meal> dayMeals)
     {
         if (this.type.ordinal() == type.ordinal())
             CreatePlan(dayMeals);
@@ -27,7 +27,7 @@ public abstract class PlanHandler implements Handler
             nextChain.handle(type, dayMeals);
     }
     @Override
-    public void Explain(TypeofDiet type)
+    public void Explain(TypeOfDiet type)
     {
         if (this.type.ordinal() == type.ordinal())
             Describe();

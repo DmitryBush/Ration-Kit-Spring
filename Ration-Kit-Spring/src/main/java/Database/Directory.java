@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Scope("singleton")
 @Component("DirectoryBean")
 public class Directory implements IDirectory
 {

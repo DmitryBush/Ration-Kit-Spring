@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 
 @Configuration
 @Scope("singleton")
+@ComponentScan("Database")
 public class SingletoneHuman {
 
     @Bean(name = "MainHuman")

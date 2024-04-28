@@ -11,8 +11,8 @@ public class Lunch extends One_Meal
 {
     public Lunch()
     {
-        context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
-        directory = context.getBean(Directory.class);
+        var con = new AnnotationConfigApplicationContext(SingletoneHuman.class);
+        directory = con.getBean(Directory.class);
     }
     @Override
     public void Create_Meal(List<One_Meal> meals_in_day, MealVisitor mealVisitor, AnnotationConfigApplicationContext context)

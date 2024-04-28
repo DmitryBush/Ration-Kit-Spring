@@ -5,6 +5,7 @@ import ForProducts.Product.Original;
 import ForProducts.Product.Product;
 import ForProducts.Product.TypeProduct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;

@@ -22,8 +22,6 @@ public abstract class One_Meal implements Iterable<Product>
     private float max_protein, max_fats, max_carbohydrates, max_kilocalories;
     private List<Product> products = new ArrayList<>();
 
-    AnnotationConfigApplicationContext context;
-
     public abstract void Create_Meal(List<One_Meal> meals_in_day, MealVisitor mealVisitor, AnnotationConfigApplicationContext context);
 
     protected void CreatePlan(List<One_Meal> meals_in_day)
@@ -56,7 +54,8 @@ public abstract class One_Meal implements Iterable<Product>
         fats=0;
         carbohydrates=0;
         kilocalories =0;
-        //AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
+
         if(!Check_on_Special_Diet(context.getBean(Human.class).getTypeDiet())){
             for (int i=0; i<products.size();i++){
                 if (products.get(i).getType_product() == TypeProduct.Garnish){

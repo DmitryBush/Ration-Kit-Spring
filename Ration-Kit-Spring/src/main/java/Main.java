@@ -31,8 +31,6 @@ public class Main
     static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
 
     public static void main(String[] args){
-        List<One_Meal> meals = new LinkedList<>();
-        new Breakfast().Create_Meal(meals, new MealVisitorClass(), context);
         Enter_Data_For_Person();
 
         _diet_plan.Create_Day_Diet(context);

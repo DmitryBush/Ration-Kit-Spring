@@ -1,4 +1,9 @@
+import Database.Database;
 import Database.Directory;
+import ForProducts.Meal.Breakfast;
+import ForProducts.Meal.One_Meal;
+import ForProducts.Meal.Visitor.MealVisitor;
+import ForProducts.Meal.Visitor.MealVisitorClass;
 import ForProducts.Product.DietPlan;
 import ForProducts.Product.TypeOfDiet;
 import Human.Gender;
@@ -7,6 +12,8 @@ import Human.Human;
 import Human.SingletoneHuman;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main
@@ -15,17 +22,20 @@ public class Main
 
     static Scanner _scanner = new Scanner(System.in);
     public static Human mainHuman;    // создаём параметры пользователя для которого нужна диета
-    public static Directory directory = new Directory();      //для получения списков продуктов из базы данных
+
+    //для получения списков продуктов из базы данных
+    //public static Directory directory;
 
     public static DietPlan _diet_plan = new DietPlan();    // план питания на день
 
     static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
 
     public static void main(String[] args){
-
+        List<One_Meal> meals = new LinkedList<>();
+        new Breakfast().Create_Meal(meals, new MealVisitorClass(), context);
         Enter_Data_For_Person();
 
-        _diet_plan.Create_Day_Diet(directory,context);
+        _diet_plan.Create_Day_Diet(context);
 
         _diet_plan.Show_Ration_OnDay();
     }

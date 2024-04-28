@@ -4,25 +4,26 @@ import ForProducts.Product.Builder.BuilderProductClass;
 import ForProducts.Product.Original;
 import ForProducts.Product.Product;
 import ForProducts.Product.TypeProduct;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.*;
 
-public class Database implements Iterable<Product>
+@Component("db")
+public class Database implements IDatabase
 {
     String url, sql;
     private int size = 0;
     Properties authorization;
     Connection connection;
 
-    public Database(String url, String sql)
+    public Database(@Value("jdbc:postgresql://localhost:5432/postgres") String url)
     {
         try
         {
             Class.forName("org.postgresql.Driver");
             Connect(url);
-            this.sql = sql;
-            GetSize();
         }
         catch (ClassNotFoundException | SQLException e)
         {
@@ -38,11 +39,12 @@ public class Database implements Iterable<Product>
 
         connection = DriverManager.getConnection(url, authorization);
     }
-    public List<Product> Select(String sql)
+    public List<Product> GetData(String sql)
     {
         try (Statement _statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                 ResultSet.CONCUR_UPDATABLE))
         {
+            this.sql = sql;
             var table = _statement.executeQuery(sql);
             List<Product> list = new LinkedList<>();
             table.beforeFirst();
@@ -88,72 +90,11 @@ public class Database implements Iterable<Product>
     }
 
     @Override
-    public Iterator<Product> iterator()
-    {
-        return new Iterator<>()
-        {
-            Statement _statement;
-            ResultSet table;
-
-            {
-                try
-                {
-                    _statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                            ResultSet.CONCUR_UPDATABLE);
-                    table = _statement.executeQuery(sql);
-                }
-                catch (SQLException e)
-                {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            @Override
-            public boolean hasNext()
-            {
-                try
-                {
-                    if (table.next())
-                        return true;
-                    else
-                    {
-                        table.beforeFirst();
-                        return false;
-                    }
-                }
-                catch (SQLException e)
-                {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            @Override
-            public Product next()
-            {
-                try
-                {
-                    return new BuilderProductClass().SetName(table.getString("name_products"))
-                            .SetOriginal(table.getBoolean("vegetable") ? Original.Vegetable
-                                    : Original.Animal)
-                            .SetTypeProduct(table.getBoolean("garnish") ? TypeProduct.Garnish
-                                    : table.getBoolean("adition") ? TypeProduct.Addition
-                                    : table.getBoolean("basic") ? TypeProduct.Basic : null)
-                            .SetProtein(table.getFloat("protein"))
-                            .SetFats(table.getFloat("fat"))
-                            .SetCarbohydrates(table.getFloat("carbonohydrates"))
-                            .SetMaxGramm(table.getInt("max_count")).BuildProduct();
-                }
-                catch (SQLException e)
-                {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            @Override
-            public void remove()
-            {
-                throw new RuntimeException();
-            }
-        };
+    public String toString() {
+        return "Database{" +
+                "url='" + url + '\'' +
+                ", sql='" + sql + '\'' +
+                ", size=" + size +
+                '}';
     }
 }

@@ -1,27 +1,32 @@
 package ForProducts.Meal;
 
 import Database.Directory;
+import Database.IDirectory;
 import ForProducts.Meal.Visitor.MealVisitor;
 import ForProducts.Product.Product;
 import ForProducts.Product.TypeProduct;
 import ForProducts.Product.TypeOfDiet;
 import Human.Human;
 import Human.SingletoneHuman;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 public abstract class One_Meal implements Iterable<Product>
 {
+    protected IDirectory directory;
     private float kilocalories, protein, fats, carbohydrates;
     private float max_protein, max_fats, max_carbohydrates, max_kilocalories;
     private List<Product> products = new ArrayList<>();
 
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+    AnnotationConfigApplicationContext context;
 
-    public abstract void Create_Meal(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor, AnnotationConfigApplicationContext context);
+    public abstract void Create_Meal(List<One_Meal> meals_in_day, MealVisitor mealVisitor, AnnotationConfigApplicationContext context);
 
-    protected void CreatePlan(Directory directory, List<One_Meal> meals_in_day)
+    protected void CreatePlan(List<One_Meal> meals_in_day)
     {
         AddProduct(Check_On_New_Product(directory.getGarnish_Products(),  meals_in_day));
         AddProduct(Check_On_New_Product(directory.getBasic_Products(),  meals_in_day));
@@ -51,7 +56,7 @@ public abstract class One_Meal implements Iterable<Product>
         fats=0;
         carbohydrates=0;
         kilocalories =0;
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
+        //AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
         if(!Check_on_Special_Diet(context.getBean(Human.class).getTypeDiet())){
             for (int i=0; i<products.size();i++){
                 if (products.get(i).getType_product() == TypeProduct.Garnish){

@@ -8,13 +8,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 @Configuration
-@Scope("singleton")
-@ComponentScan("Database")
 public class SingletoneHuman {
 
     @Bean(name = "MainHuman")
+    @Scope("singleton")
     public Human singletonHuman(){
-        System.out.println("Rabota");
         return new Human();
     }
 }

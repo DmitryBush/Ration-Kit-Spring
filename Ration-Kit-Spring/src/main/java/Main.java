@@ -11,6 +11,7 @@ import Human.GenderException;
 import Human.Human;
 import Human.SingletoneHuman;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,11 +32,14 @@ public class Main
     static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SingletoneHuman.class);
 
     public static void main(String[] args){
-        Enter_Data_For_Person();
+        //Enter_Data_For_Person();
+        mainHuman = context.getBean(Human.class);
+        mainHuman.SetHumanParametres(54, 182,300,1.2F,
+                Gender.Male, TypeOfDiet.diet_regular);
 
         _diet_plan.Create_Day_Diet(context);
 
-        _diet_plan.Show_Ration_OnDay();
+        //_diet_plan.Show_Ration_OnDay();
     }
 
     private static void Enter_Data_For_Person()   // ввод всех необходимых данных о человеке

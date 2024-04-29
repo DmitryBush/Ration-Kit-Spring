@@ -19,7 +19,6 @@ public class Directory implements IDirectory
     @Autowired
     public Directory(IDatabase db)
     {
-        System.out.println("created");
         Basic_Products = new ArrayList<>(db.GetData("select * from products where basic = true"));
         Garnish_Products = new ArrayList<>(db.GetData("select * from products where garnish = true"));
         Addition_Products = new ArrayList<>(db.GetData("select * from products where adition = true"));

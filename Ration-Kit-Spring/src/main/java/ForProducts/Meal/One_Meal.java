@@ -1,24 +1,21 @@
 package ForProducts.Meal;
 
 import Database.Directory;
-import Database.IDirectory;
 import ForProducts.Meal.Visitor.MealVisitor;
 import ForProducts.Product.Product;
 import ForProducts.Product.TypeProduct;
 import ForProducts.Product.TypeOfDiet;
 import Human.Human;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Component
 public abstract class One_Meal implements Iterable<Product>
 {
     protected AnnotationConfigApplicationContext context;
     private float kilocalories, protein, fats, carbohydrates;
     private float max_protein, max_fats, max_carbohydrates, max_kilocalories;
-    public List<Product> products = new ArrayList<>();
+    protected List<Product> products = new ArrayList<>();
 
     public abstract void Create_Meal(List<One_Meal> meals_in_day, MealVisitor mealVisitor);
 

@@ -1,18 +1,15 @@
 package ForProducts.Meal;
 
 import Database.Directory;
-import Database.IDirectory;
 import ForProducts.Meal.Visitor.MealVisitor;
 import ForProducts.Product.Product;
 import ForProducts.Product.TypeProduct;
 import ForProducts.Product.TypeOfDiet;
 import Human.Human;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Component
 public abstract class One_Meal implements Iterable<Product>
 {
     protected AnnotationConfigApplicationContext context;

@@ -9,7 +9,6 @@ import ForProducts.Product.TypeOfDiet;
 @Component ("human")
 public class Human
 {
-
     // Calculated ration values
     private float kilocalories, protein, fats, carbohydrates;
     private TypeOfDiet _Type_Diet;
@@ -20,8 +19,6 @@ public class Human
         fats=0;
         carbohydrates=0;
         TypeOfDiet dietType = null; // Пользователь укажет тип диеты
-
-
     }
 
     @Override

@@ -1,9 +1,7 @@
 package ForProducts.Meal;
 
-import Database.Directory;
 import ForProducts.Meal.Visitor.MealVisitor;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,11 +9,14 @@ import java.util.List;
 @Component
 public class Lunch extends One_Meal
 {
+    public Lunch(AnnotationConfigApplicationContext context)
+    {
+        this.context = context;
+    }
     @Override
-    public void Create_Meal(Directory directory, List<One_Meal> meals_in_day,
-                            MealVisitor mealVisitor, AnnotationConfigApplicationContext context)
+    public void Create_Meal(List<One_Meal> meals_in_day, MealVisitor mealVisitor)
     {
         mealVisitor.CalculateLunch(this, context);
-        CreatePlan(directory, meals_in_day);
+        CreatePlan(meals_in_day);
     }
 }

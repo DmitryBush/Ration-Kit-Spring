@@ -1,12 +1,12 @@
 package ForProducts.Meal;
 
 import Database.Directory;
+import Database.IDirectory;
 import ForProducts.Meal.Visitor.MealVisitor;
 import ForProducts.Product.Product;
 import ForProducts.Product.TypeProduct;
 import ForProducts.Product.TypeOfDiet;
 import Human.Human;
-import Human.Config;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -15,19 +15,18 @@ import java.util.*;
 @Component
 public abstract class One_Meal implements Iterable<Product>
 {
+    protected AnnotationConfigApplicationContext context;
     private float kilocalories, protein, fats, carbohydrates;
     private float max_protein, max_fats, max_carbohydrates, max_kilocalories;
     public List<Product> products = new ArrayList<>();
 
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+    public abstract void Create_Meal(List<One_Meal> meals_in_day, MealVisitor mealVisitor);
 
-    public abstract void Create_Meal(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor, AnnotationConfigApplicationContext context);
-
-    protected void CreatePlan(Directory directory, List<One_Meal> meals_in_day)
+    protected void CreatePlan(List<One_Meal> meals_in_day)
     {
-        AddProduct(Check_On_New_Product(directory.getGarnish_Products(),  meals_in_day));
-        AddProduct(Check_On_New_Product(directory.getBasic_Products(),  meals_in_day));
-        AddProduct(Check_On_New_Product(directory.getAddition_Products(),  meals_in_day));
+        AddProduct(Check_On_New_Product(context.getBean(Directory.class).getGarnish_Products(),  meals_in_day));
+        AddProduct(Check_On_New_Product(context.getBean(Directory.class).getBasic_Products(),  meals_in_day));
+        AddProduct(Check_On_New_Product(context.getBean(Directory.class).getAddition_Products(), meals_in_day));
         Balance_Products_In_Meal();
         Calculate_PFC();
     }
@@ -48,13 +47,14 @@ public abstract class One_Meal implements Iterable<Product>
 
     void Balance_Products_In_Meal(){
         Random rand  = new Random();
+        Human person = context.getBean(Human.class);
         float product_gramm = 0;
         protein =0;
         fats=0;
         carbohydrates=0;
         kilocalories =0;
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
-        if(!Check_on_Special_Diet(context.getBean(Human.class).getTypeDiet())){
+
+        if(!Check_on_Special_Diet(person.getTypeDiet())){
             for (int i=0; i<products.size();i++){
                 if (products.get(i).getType_product() == TypeProduct.Garnish){
                     product_gramm =(rand.nextFloat(max_carbohydrates*0.7f,

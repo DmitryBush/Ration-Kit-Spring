@@ -1,4 +1,9 @@
+import Database.Database;
 import Database.Directory;
+import ForProducts.Meal.Breakfast;
+import ForProducts.Meal.One_Meal;
+import ForProducts.Meal.Visitor.MealVisitor;
+import ForProducts.Meal.Visitor.MealVisitorClass;
 import ForProducts.Product.DietPlan;
 import ForProducts.Product.TypeOfDiet;
 import Human.Gender;
@@ -6,7 +11,10 @@ import Human.GenderException;
 import Human.Human;
 import Human.Config;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -16,19 +24,23 @@ public class Main
 
     static Scanner _scanner = new Scanner(System.in);
     public static Human mainHuman;    // создаём параметры пользователя для которого нужна диета
-    public static Directory directory = new Directory();      //для получения списков продуктов из базы данных
+
+    //для получения списков продуктов из базы данных
+    //public static Directory directory;
 
     public static DietPlan _diet_plan = new DietPlan();    // план питания на день
 
     static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
 
     public static void main(String[] args){
+        //Enter_Data_For_Person();
+        mainHuman = context.getBean(Human.class);
+        mainHuman.SetHumanParametres(54, 182,300,1.2F,
+                Gender.Male, TypeOfDiet.diet_regular);
 
-        Enter_Data_For_Person();
+        _diet_plan.Create_Day_Diet(context);
 
-        _diet_plan.Create_Day_Diet(directory,context);
-
-        _diet_plan.Show_Ration_OnDay();
+        //_diet_plan.Show_Ration_OnDay();
     }
 
     private static void Enter_Data_For_Person()   // ввод всех необходимых данных о человеке

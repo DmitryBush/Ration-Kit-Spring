@@ -21,7 +21,7 @@ public class DietPlan {
         CreatePlan();
 
         for(int i=0; i<Meals_in_day.size(); i++){
-            Meals_in_day.get(i).Create_Meal(Meals_in_day, context.getBean(MealVisitorClass.class), this.context);
+            Meals_in_day.get(i).Create_Meal(Meals_in_day, context.getBean(MealVisitorClass.class));
 
             day_protein +=Meals_in_day.get(i).getProtein();
             day_fats +=Meals_in_day.get(i).getFats();
@@ -40,7 +40,7 @@ public class DietPlan {
 
         handler.setNext(handler1);
         handler1.setNext(handler2);
-        handler.handle(_Type_Diet, Meals_in_day);
+        handler.handle(_Type_Diet, Meals_in_day, context);
     }
 
    public void Show_Ration_OnDay(){     // показ всех продуктов используемых в дневном рационе

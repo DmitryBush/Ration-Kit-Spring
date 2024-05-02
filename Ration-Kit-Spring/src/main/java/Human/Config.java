@@ -11,12 +11,12 @@ import org.springframework.context.annotation.*;
 import java.util.List;
 
 @Configuration
-@Scope("singleton")
 @ComponentScan("Aspects")
 @ComponentScan("ForProducts.Meal.Visitor")
+@ComponentScan("Database")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class Config {
-
+    @Scope("singleton")
     @Bean(name = "MainHuman")
     public Human singletonHuman(){
         return new Human();

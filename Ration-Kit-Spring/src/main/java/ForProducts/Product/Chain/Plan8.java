@@ -16,10 +16,10 @@ public class Plan8 extends PlanHandler
         super(TypeOfDiet.diet_16_8);
     }
     @Override
-    protected void CreatePlan(List<One_Meal> dayMeals) {
-        dayMeals.add(new Breakfast());
-        dayMeals.add(new Lunch());
-        dayMeals.add(new Dinner());
+    protected void CreatePlan(List<One_Meal> dayMeals, AnnotationConfigApplicationContext context) {
+        dayMeals.add(new Breakfast(context));
+        dayMeals.add(new Lunch(context));
+        dayMeals.add(new Dinner(context));
     }
 
     @Override

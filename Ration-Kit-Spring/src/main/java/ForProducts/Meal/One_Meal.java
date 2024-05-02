@@ -1,5 +1,6 @@
 package ForProducts.Meal;
 
+import Database.Directory;
 import Database.IDirectory;
 import ForProducts.Meal.Visitor.MealVisitor;
 import ForProducts.Product.Product;
@@ -14,20 +15,18 @@ import java.util.*;
 @Component
 public abstract class One_Meal implements Iterable<Product>
 {
-    protected IDirectory directory;
-    protected Human person;
+    protected AnnotationConfigApplicationContext context;
     private float kilocalories, protein, fats, carbohydrates;
     private float max_protein, max_fats, max_carbohydrates, max_kilocalories;
     public List<Product> products = new ArrayList<>();
 
-    public abstract void Create_Meal(List<One_Meal> meals_in_day, MealVisitor mealVisitor,
-                                     AnnotationConfigApplicationContext context);
+    public abstract void Create_Meal(List<One_Meal> meals_in_day, MealVisitor mealVisitor);
 
     protected void CreatePlan(List<One_Meal> meals_in_day)
     {
-        AddProduct(Check_On_New_Product(directory.getGarnish_Products(),  meals_in_day));
-        AddProduct(Check_On_New_Product(directory.getBasic_Products(),  meals_in_day));
-        AddProduct(Check_On_New_Product(directory.getAddition_Products(),  meals_in_day));
+        AddProduct(Check_On_New_Product(context.getBean(Directory.class).getGarnish_Products(),  meals_in_day));
+        AddProduct(Check_On_New_Product(context.getBean(Directory.class).getBasic_Products(),  meals_in_day));
+        AddProduct(Check_On_New_Product(context.getBean(Directory.class).getAddition_Products(), meals_in_day));
         Balance_Products_In_Meal();
         Calculate_PFC();
     }
@@ -48,6 +47,7 @@ public abstract class One_Meal implements Iterable<Product>
 
     void Balance_Products_In_Meal(){
         Random rand  = new Random();
+        Human person = context.getBean(Human.class);
         float product_gramm = 0;
         protein =0;
         fats=0;

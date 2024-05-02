@@ -9,7 +9,6 @@ import ForProducts.Product.TypeOfDiet;
 @Component ("human")
 public class Human
 {
-
     // Calculated ration values
     private float kilocalories, protein, fats, carbohydrates;
     private TypeOfDiet _Type_Diet;
@@ -20,19 +19,18 @@ public class Human
         fats=0;
         carbohydrates=0;
         TypeOfDiet dietType = null; // Пользователь укажет тип диеты
-        System.out.println("Rabotaet");
     }
 
-//    @Override
-//    public String toString() {
-//        return "Human{" +
-//                "kilocalories=" + kilocalories +
-//                ", protein=" + protein +
-//                ", fats=" + fats +
-//                ", carbohydrates=" + carbohydrates +
-//                ", _Type_Diet=" + _Type_Diet +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Human{" +
+                "kilocalories=" + kilocalories +
+                ", protein=" + protein +
+                ", fats=" + fats +
+                ", carbohydrates=" + carbohydrates +
+                ", _Type_Diet=" + _Type_Diet +
+                '}';
+    }
 
     public Human SetHumanParametres(int age, float height, float weight,
                                     float activityCoefficient, Gender gender, TypeOfDiet _Type_Diet)

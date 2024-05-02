@@ -15,11 +15,9 @@ public class Plan4 extends PlanHandler
         super(TypeOfDiet.diet_20_4);
     }
     @Override
-    protected void CreatePlan(List<One_Meal> dayMeals,  AnnotationConfigApplicationContext context) {
-        Lunch lunch = context.getBean(Lunch.class);
-        Dinner dinner = context.getBean(Dinner.class);
-        dayMeals.add(lunch);
-        dayMeals.add(dinner);
+    protected void CreatePlan(List<One_Meal> dayMeals) {
+        dayMeals.add(new Lunch());
+        dayMeals.add(new Dinner());
     }
 
     @Override

@@ -19,13 +19,13 @@ public abstract class PlanHandler implements Handler
     @Override
     public void setNext(Handler handler) {nextChain = handler;}
     @Override
-    public void handle(TypeOfDiet type, List<One_Meal> dayMeals, AnnotationConfigApplicationContext context)
+    public void handle(TypeOfDiet type, List<One_Meal> dayMeals)
     {
         if (this.type.ordinal() == type.ordinal())
-            CreatePlan(dayMeals, context);
+            CreatePlan(dayMeals);
 
         if (Objects.nonNull(nextChain))
-            nextChain.handle(type, dayMeals,context);
+            nextChain.handle(type, dayMeals);
     }
     @Override
     public void Explain(TypeOfDiet type)
@@ -36,7 +36,7 @@ public abstract class PlanHandler implements Handler
         if (Objects.nonNull(nextChain))
             nextChain.Explain(type);
     }
-    protected abstract void CreatePlan(List<One_Meal> dayMeals,  AnnotationConfigApplicationContext context);
+    protected abstract void CreatePlan(List<One_Meal> dayMeals);
     protected abstract void Describe();
 
 

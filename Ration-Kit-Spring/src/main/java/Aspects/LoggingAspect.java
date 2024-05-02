@@ -36,24 +36,24 @@ public class LoggingAspect {
      * ВАЖНО!!! Название самого Advice не играет никакой роли! Важен его Pointcut!!!
      */
 
-    @Before("execution(public void Create_Meal(Directory, java.util.List, MealVisitor, org.springframework.context.annotation.AnnotationConfigApplicationContext context))")
+    @Before("execution(public void Create_Meal(..))")
     public void beforeCreateMealAdvice() {
         System.out.println("beforeCreateMeal: Подбор продуктов для приёма пищи.");
     }
 
-    @Before("execution(public void CalculateBreakfast(One_Meal meal,AnnotationConfigApplicationContext context))")
+    @Before("execution(public void CalculateBreakfast(..))")
     public void beforeCreateBreakfastMealAdvice() {
         System.out.println("beforeCreateBreakfastMeal: Подбор продуктов для завтрака.");
 
     }
 
-    @Before("execution(public void CalculateLunch(One_Meal meal,AnnotationConfigApplicationContext context))")
+    @Before("execution(public void CalculateLunch(..))")
     public void beforeCreateLunchMealAdvice() {
         System.out.println("beforeCreateLunchMeal: Подбор продуктов для обеда.");
 
     }
 
-    @Before("execution(public void CalculateDinner(One_Meal meal,AnnotationConfigApplicationContext context))")
+    @Before("execution(public void CalculateDinner(..))")
     public void beforeCreateDinnerMealAdvice() {
         System.out.println("beforeCreateDinnerMeal: Подбор продуктов для ужина.");
     }

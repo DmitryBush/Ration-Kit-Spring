@@ -13,7 +13,7 @@ public class DietPlan {
     private final List<One_Meal> Meals_in_day = new ArrayList<>();
     float day_protein, day_fats, day_carbonohydrates , day_kilocalories;
     TypeOfDiet _Type_Diet;
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();;
+    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 
     public void Create_Day_Diet(Directory directory,AnnotationConfigApplicationContext context){    // создание вариантов питания на день в зависимости от типа диет
 
@@ -21,7 +21,8 @@ public class DietPlan {
         CreatePlan();
 
         for(int i=0; i<Meals_in_day.size(); i++){
-            context.getBean(Meals_in_day.get(i).getClass()).Create_Meal(directory, Meals_in_day, new MealVisitorClass(), this.context);
+            Meals_in_day.get(i).Create_Meal(directory, Meals_in_day,
+                    context.getBean(MealVisitorClass.class), this.context);
 
             day_protein +=Meals_in_day.get(i).getProtein();
             day_fats +=Meals_in_day.get(i).getFats();
@@ -33,7 +34,6 @@ public class DietPlan {
 
     private void CreatePlan()
     {
-
         _Type_Diet = context.getBean(Human.class).getTypeDiet();
         Handler handler = new RegularPlan();
         Handler handler1 = new Plan8();
@@ -41,7 +41,7 @@ public class DietPlan {
 
         handler.setNext(handler1);
         handler1.setNext(handler2);
-        handler.handle(_Type_Diet, Meals_in_day, context);
+        handler.handle(_Type_Diet, Meals_in_day);
 
     }
 
@@ -75,7 +75,4 @@ public class DietPlan {
 
         regular.Explain(_Type_Diet);
     }
-
-
-
 }

@@ -12,7 +12,8 @@ import java.util.List;
 
 @Configuration
 @Scope("singleton")
-@ComponentScan("aop")
+@ComponentScan("Aspects")
+@ComponentScan("ForProducts.Meal.Visitor")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class Config {
 
@@ -20,18 +21,5 @@ public class Config {
     public Human singletonHuman(){
         return new Human();
     }
-    @Bean
-    public Breakfast breakfast(){
-        return new Breakfast();
-    }
-    @Bean
-    public Lunch lunch(){
-        return new Lunch();
-    }
-    @Bean
-    public Dinner dinner(){
-        return new Dinner();
-    }
-
 }
 

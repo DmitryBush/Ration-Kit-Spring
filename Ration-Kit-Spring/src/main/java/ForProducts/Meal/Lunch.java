@@ -5,9 +5,12 @@ import Database.DirectoryConfig;
 import ForProducts.Meal.Visitor.MealVisitor;
 import Human.Human;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class Lunch extends One_Meal
 {
     public Lunch()

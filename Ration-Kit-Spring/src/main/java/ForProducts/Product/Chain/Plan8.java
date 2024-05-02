@@ -11,6 +11,7 @@ import java.util.List;
 
 public class Plan8 extends PlanHandler
 {
+
     public Plan8() {
         super(TypeOfDiet.diet_16_8);
     }
@@ -28,4 +29,6 @@ public class Plan8 extends PlanHandler
                 "Уменьшите время между приёмами пищи" + "Вы должны пить как можно больше воды! \n" +
                 "Это поможет продержаться во время голодания. Вода помогает унять чувство голода.");
     }
+
+
 }

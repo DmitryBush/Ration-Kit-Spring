@@ -7,16 +7,18 @@ import ForProducts.Product.TypeProduct;
 import ForProducts.Product.TypeOfDiet;
 import Human.Human;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public abstract class One_Meal implements Iterable<Product>
 {
     protected IDirectory directory;
     protected Human person;
     private float kilocalories, protein, fats, carbohydrates;
     private float max_protein, max_fats, max_carbohydrates, max_kilocalories;
-    private List<Product> products = new ArrayList<>();
+    public List<Product> products = new ArrayList<>();
 
     public abstract void Create_Meal(List<One_Meal> meals_in_day, MealVisitor mealVisitor,
                                      AnnotationConfigApplicationContext context);
@@ -139,7 +141,7 @@ public abstract class One_Meal implements Iterable<Product>
             product = list_product.get(Rand);
 
             for(int i =0; i<meals_in_day.size(); i++){
-                for (int j=0; j< meals_in_day.get(i).products.size(); j++){
+                for (int j=0; j < meals_in_day.get(i).products.size(); j++){
                     if (Objects.equals(product, meals_in_day.get(i).products.get(j))){
                         new_product = false;
                         Rand = rand.nextInt(list_product.size());

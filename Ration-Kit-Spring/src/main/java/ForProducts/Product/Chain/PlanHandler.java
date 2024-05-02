@@ -38,4 +38,6 @@ public abstract class PlanHandler implements Handler
     }
     protected abstract void CreatePlan(List<One_Meal> dayMeals);
     protected abstract void Describe();
+
+
 }

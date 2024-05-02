@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Plan4 extends PlanHandler
 {
+
     public Plan4() {
         super(TypeOfDiet.diet_20_4);
     }
@@ -27,4 +28,6 @@ public class Plan4 extends PlanHandler
                 "Вы должны пить как можно больше воды! " +
                 "Это поможет продержаться во время голодания.\n Вода помогает унять чувство голода.");
     }
+
+
 }

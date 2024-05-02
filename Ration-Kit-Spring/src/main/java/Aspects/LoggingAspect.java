@@ -8,7 +8,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
-
+import ForProducts.Meal.Breakfast;
+import ForProducts.Meal.Lunch;
+import ForProducts.Meal.Dinner;
 import java.util.Optional;
 
 
@@ -34,42 +36,25 @@ public class LoggingAspect {
      * ВАЖНО!!! Название самого Advice не играет никакой роли! Важен его Pointcut!!!
      */
 
+    @Before("execution(public void Create_Meal(..))")
+    public void beforeCreateMealAdvice() {
+        System.out.println("beforeCreateMeal: Подбор продуктов для приёма пищи.");
+    }
 
-
-    @Before("execution(public void CalculateBreakfast(One_Meal meal,AnnotationConfigApplicationContext context))")
-    public void beforeCreateBreakfastMeal() {
+    @Before("execution(public void CalculateBreakfast(..))")
+    public void beforeCreateBreakfastMealAdvice() {
         System.out.println("beforeCreateBreakfastMeal: Подбор продуктов для завтрака.");
 
     }
 
-    /**
-     * Advice, помеченный @AfterReturning выполняется только после нормального
-     * окончания метода с основной логикой.
-     * <p>
-     * ВАЖНО!!! Название самого Advice не играет никакой роли! Важен его Pointcut!!!
-     * execution(public void returnBook()) будет работать для обоих библиотек!!!
-     * Для разрешения данного конфликта явно укажем declaring-type-pattern? (класс, которому
-     * принадлжеит метод)
-     */
-
-    @Before("execution(public void CalculateLunch(One_Meal meal,AnnotationConfigApplicationContext context))")
-    public void beforeCreateLunchMeal() {
+    @Before("execution(public void CalculateLunch(..))")
+    public void beforeCreateLunchMealAdvice() {
         System.out.println("beforeCreateLunchMeal: Подбор продуктов для обеда.");
 
     }
 
-    /**
-     * Advice, помеченный @AfterReturning выполняется только после нормального
-     * окончания метода с основной логикой.
-     * <p>
-     * ВАЖНО!!! Название самого Advice не играет никакой роли! Важен его Pointcut!!!
-     * execution(public void returnBook()) будет работать для обоих библиотек!!!
-     * Для разрешения данного конфликта явно укажем declaring-type-pattern? (класс, которому
-     * принадлжеит метод)
-     */
-
-    @Before("execution(public void CalculateDinner(One_Meal meal,AnnotationConfigApplicationContext context))")
-    public void beforeCreateDinnerMeal() {
+    @Before("execution(public void CalculateDinner(..))")
+    public void beforeCreateDinnerMealAdvice() {
         System.out.println("beforeCreateDinnerMeal: Подбор продуктов для ужина.");
     }
 

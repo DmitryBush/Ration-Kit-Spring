@@ -11,6 +11,7 @@ import java.util.List;
 
 public class RegularPlan extends PlanHandler
 {
+
     public RegularPlan() {
         super(TypeOfDiet.diet_regular);
     }
@@ -28,4 +29,6 @@ public class RegularPlan extends PlanHandler
         System.out.println("Это стандартный тип питания, " +
                 "при котором вы можете есть в удобное для вас время, но не позже двух часов до сна!");
     }
+
+
 }

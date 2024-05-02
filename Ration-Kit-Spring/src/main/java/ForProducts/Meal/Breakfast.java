@@ -2,6 +2,7 @@ package ForProducts.Meal;
 
 import Database.Directory;
 import ForProducts.Meal.Visitor.MealVisitor;
+import ForProducts.Meal.Visitor.MealVisitorClass;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,8 @@ import java.util.List;
 public class Breakfast extends One_Meal
 {
     @Override
-    public void Create_Meal(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor, AnnotationConfigApplicationContext context)
+    public void Create_Meal(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor,
+                            AnnotationConfigApplicationContext context)
     {
         mealVisitor.CalculateBreakfast(this, context);
         CreatePlan(directory, meals_in_day);

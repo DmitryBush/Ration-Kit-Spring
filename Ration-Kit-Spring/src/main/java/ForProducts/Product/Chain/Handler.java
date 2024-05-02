@@ -9,7 +9,7 @@ import java.util.List;
 public interface Handler
 {
     void setNext(Handler handler);
-    void handle(TypeOfDiet type, List<One_Meal> dayMeals, AnnotationConfigApplicationContext context);
+    void handle(TypeOfDiet type, List<One_Meal> dayMeals);
     void Explain(TypeOfDiet type);
 
 

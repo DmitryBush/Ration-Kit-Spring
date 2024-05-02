@@ -17,7 +17,7 @@ public abstract class One_Meal implements Iterable<Product>
 {
     private float kilocalories, protein, fats, carbohydrates;
     private float max_protein, max_fats, max_carbohydrates, max_kilocalories;
-    private List<Product> products = new ArrayList<>();
+    public List<Product> products = new ArrayList<>();
 
     AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 
@@ -141,7 +141,7 @@ public abstract class One_Meal implements Iterable<Product>
             product = list_product.get(Rand);
 
             for(int i =0; i<meals_in_day.size(); i++){
-                for (int j=0; j< meals_in_day.get(i).products.size(); j++){
+                for (int j=0; j < meals_in_day.get(i).products.size(); j++){
                     if (Objects.equals(product, meals_in_day.get(i).products.get(j))){
                         new_product = false;
                         Rand = rand.nextInt(list_product.size());

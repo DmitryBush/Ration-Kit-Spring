@@ -13,7 +13,7 @@ public class Plan0 extends PlanHandler
     }
 
     @Override
-    protected void CreatePlan(List<One_Meal> dayMeals,  AnnotationConfigApplicationContext context) {}
+    protected void CreatePlan(List<One_Meal> dayMeals) {}
 
     @Override
     protected void Describe() {

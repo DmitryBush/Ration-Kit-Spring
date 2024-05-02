@@ -11,7 +11,8 @@ import java.util.List;
 public class Dinner extends One_Meal
 {
     @Override
-    public void Create_Meal(Directory directory, List<One_Meal> meals_in_day, MealVisitor mealVisitor, AnnotationConfigApplicationContext context)
+    public void Create_Meal(Directory directory, List<One_Meal> meals_in_day,
+                            MealVisitor mealVisitor, AnnotationConfigApplicationContext context)
     {
         mealVisitor.CalculateDinner(this, context);
         CreatePlan(directory, meals_in_day);

@@ -3,7 +3,9 @@ package ForProducts.Meal.Visitor;
 import ForProducts.Meal.One_Meal;
 import Human.Human;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MealVisitorClass implements MealVisitor
 {
 

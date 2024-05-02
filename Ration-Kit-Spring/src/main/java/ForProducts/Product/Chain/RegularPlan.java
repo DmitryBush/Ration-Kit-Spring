@@ -17,15 +17,11 @@ public class RegularPlan extends PlanHandler
     }
 
     @Override
-    protected void CreatePlan(List<One_Meal> dayMeals,  AnnotationConfigApplicationContext context)
+    protected void CreatePlan(List<One_Meal> dayMeals)
     {
-        Breakfast breakfast = context.getBean(Breakfast.class);
-        Lunch lunch = context.getBean(Lunch.class);
-        Dinner dinner = context.getBean(Dinner.class);
-        dayMeals.add(breakfast);
-        dayMeals.add(lunch);
-        dayMeals.add(dinner);
-
+        dayMeals.add(new Breakfast());
+        dayMeals.add(new Lunch());
+        dayMeals.add(new Dinner());
     }
 
     @Override

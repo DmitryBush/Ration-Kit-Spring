@@ -4,6 +4,7 @@ import ForProducts.Meal.One_Meal;
 import ForProducts.Product.TypeOfDiet;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,13 +20,14 @@ public abstract class PlanHandler implements Handler
     @Override
     public void setNext(Handler handler) {nextChain = handler;}
     @Override
-    public void handle(TypeOfDiet type, List<One_Meal> dayMeals, AnnotationConfigApplicationContext context)
+    public List<One_Meal> handle(TypeOfDiet type)
     {
         if (this.type.ordinal() == type.ordinal())
-            CreatePlan(dayMeals, context);
+            return CreatePlan();
 
         if (Objects.nonNull(nextChain))
-            nextChain.handle(type, dayMeals, context);
+            return nextChain.handle(type);
+        return new ArrayList<>();
     }
     @Override
     public void Explain(TypeOfDiet type)
@@ -36,7 +38,7 @@ public abstract class PlanHandler implements Handler
         if (Objects.nonNull(nextChain))
             nextChain.Explain(type);
     }
-    protected abstract void CreatePlan(List<One_Meal> dayMeals, AnnotationConfigApplicationContext context);
+    protected abstract List<One_Meal> CreatePlan();
     protected abstract void Describe();
 
 

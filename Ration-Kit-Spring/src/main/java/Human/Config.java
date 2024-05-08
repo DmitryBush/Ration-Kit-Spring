@@ -14,6 +14,9 @@ import java.util.List;
 @ComponentScan("Aspects")
 @ComponentScan("ForProducts.Meal.Visitor")
 @ComponentScan("Database")
+@ComponentScan("ForProducts.Product.Chain")
+@ComponentScan("ForProducts.Meal")
+@ComponentScan("ForProducts.Product")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class Config {
     @Scope("singleton")

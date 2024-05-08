@@ -10,6 +10,7 @@ import Human.Gender;
 import Human.GenderException;
 import Human.Human;
 import Human.Config;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -22,15 +23,17 @@ public class Main
 {
     static Scanner _scanner = new Scanner(System.in);
     public static Human mainHuman;    // создаём параметры пользователя для которого нужна диета
-
-    public static DietPlan _diet_plan = new DietPlan();    // план питания на день
-
+    public static DietPlan _diet_plan;    // план питания на день
     static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
 
-    public static void main(String[] args){
+    public static void main(String[] args)
+    {
+        mainHuman = context.getBean(Human.class);
         Enter_Data_For_Person();
 
-        _diet_plan.Create_Day_Diet(context);
+        _diet_plan = context.getBean(DietPlan.class);
+
+        _diet_plan.Create_Day_Diet();
 
         _diet_plan.Show_Ration_OnDay();
     }

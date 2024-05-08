@@ -5,21 +5,32 @@ import ForProducts.Meal.Dinner;
 import ForProducts.Meal.Lunch;
 import ForProducts.Meal.One_Meal;
 import ForProducts.Product.TypeOfDiet;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Component("plan8")
 public class Plan8 extends PlanHandler
 {
-
+    @Autowired
+    private Breakfast breakfast;
+    @Autowired
+    private Lunch lunch;
+    @Autowired
+    private Dinner dinner;
     public Plan8() {
         super(TypeOfDiet.diet_16_8);
     }
     @Override
-    protected void CreatePlan(List<One_Meal> dayMeals, AnnotationConfigApplicationContext context) {
-        dayMeals.add(new Breakfast(context));
-        dayMeals.add(new Lunch(context));
-        dayMeals.add(new Dinner(context));
+    protected List<One_Meal> CreatePlan() {
+        var beanList = new ArrayList<One_Meal>();
+        beanList.add(breakfast);
+        beanList.add(lunch);
+        beanList.add(dinner);
+        return beanList;
     }
 
     @Override

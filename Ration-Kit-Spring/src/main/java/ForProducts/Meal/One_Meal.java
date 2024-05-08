@@ -1,11 +1,13 @@
 package ForProducts.Meal;
 
 import Database.Directory;
+import Database.IDirectory;
 import ForProducts.Meal.Visitor.MealVisitor;
 import ForProducts.Product.Product;
 import ForProducts.Product.TypeProduct;
 import ForProducts.Product.TypeOfDiet;
 import Human.Human;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.*;
@@ -13,17 +15,21 @@ import java.util.*;
 public abstract class One_Meal implements Iterable<Product>
 {
     protected AnnotationConfigApplicationContext context;
+    @Autowired
+    private IDirectory directory;
+    @Autowired
+    protected Human person;
     private float kilocalories, protein, fats, carbohydrates;
     private float max_protein, max_fats, max_carbohydrates, max_kilocalories;
     protected List<Product> products = new ArrayList<>();
 
-    public abstract void Create_Meal(List<One_Meal> meals_in_day, MealVisitor mealVisitor);
+    public abstract One_Meal Create_Meal(List<One_Meal> meals_in_day, MealVisitor mealVisitor);
 
     protected void CreatePlan(List<One_Meal> meals_in_day)
     {
-        AddProduct(Check_On_New_Product(context.getBean(Directory.class).getGarnish_Products(),  meals_in_day));
-        AddProduct(Check_On_New_Product(context.getBean(Directory.class).getBasic_Products(),  meals_in_day));
-        AddProduct(Check_On_New_Product(context.getBean(Directory.class).getAddition_Products(), meals_in_day));
+        AddProduct(Check_On_New_Product(directory.getGarnish_Products(),  meals_in_day));
+        AddProduct(Check_On_New_Product(directory.getBasic_Products(),  meals_in_day));
+        AddProduct(Check_On_New_Product(directory.getAddition_Products(), meals_in_day));
         Balance_Products_In_Meal();
         Calculate_PFC();
     }
@@ -44,7 +50,6 @@ public abstract class One_Meal implements Iterable<Product>
 
     void Balance_Products_In_Meal(){
         Random rand  = new Random();
-        Human person = context.getBean(Human.class);
         float product_gramm = 0;
         protein =0;
         fats=0;
@@ -221,6 +226,11 @@ public abstract class One_Meal implements Iterable<Product>
 
     public void setMax_kilocalories(float max_kilocalories) {
         this.max_kilocalories = max_kilocalories;
+    }
+
+    @Autowired
+    public void setDirectory(IDirectory directory) {
+        this.directory = directory;
     }
 
     @Override

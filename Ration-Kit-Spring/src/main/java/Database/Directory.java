@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component("DirectoryBean")
+@Scope("singleton")
 public class Directory implements IDirectory
 {
     private final List<Product> Basic_Products;

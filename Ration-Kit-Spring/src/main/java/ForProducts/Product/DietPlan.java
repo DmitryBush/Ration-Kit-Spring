@@ -1,46 +1,46 @@
 package ForProducts.Product;
 import ForProducts.Meal.*;
+import ForProducts.Meal.Visitor.MealVisitor;
 import ForProducts.Meal.Visitor.MealVisitorClass;
 import ForProducts.Product.Chain.*;
 import Human.Human;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class DietPlan {
     private final List<One_Meal> Meals_in_day = new ArrayList<>();
     float day_protein, day_fats, day_carbonohydrates , day_kilocalories;
-    TypeOfDiet _Type_Diet;
+    @Autowired
+    private Human person;
+    @Autowired
+    private DietChainHandler handler;
+    @Autowired
+    private MealVisitor visitor;
 
-    AnnotationConfigApplicationContext context;
+    public void Create_Day_Diet(){    // создание вариантов питания на день в зависимости от типа диет
+        var tmpBeans = CreatePlan();
 
-    public void Create_Day_Diet(AnnotationConfigApplicationContext context){    // создание вариантов питания на день в зависимости от типа диет
+        for (var i: tmpBeans)
+        {
+            Meals_in_day.add(i.Create_Meal(Meals_in_day, visitor));
 
-        this.context = context;
-        CreatePlan();
-
-        for(int i=0; i<Meals_in_day.size(); i++){
-            Meals_in_day.get(i).Create_Meal(Meals_in_day, context.getBean(MealVisitorClass.class));
-
-            day_protein +=Meals_in_day.get(i).getProtein();
-            day_fats +=Meals_in_day.get(i).getFats();
-            day_carbonohydrates += Meals_in_day.get(i).getCarbohydrates();
+            day_protein += i.getProtein();
+            day_fats += i.getFats();
+            day_carbonohydrates += i.getCarbohydrates();
         }
+
         day_kilocalories = day_protein*4 + day_carbonohydrates*4 + day_fats*9;
         Explanations_of_intermittent_fasting();
     }
 
-    private void CreatePlan()
+    private List<One_Meal> CreatePlan()
     {
-        _Type_Diet = context.getBean(Human.class).getTypeDiet();
-        Handler handler = new RegularPlan();
-        Handler handler1 = new Plan8();
-        Handler handler2 = new Plan4();
-
-        handler.setNext(handler1);
-        handler1.setNext(handler2);
-        handler.handle(_Type_Diet, Meals_in_day, context);
+        return handler.handle(person.getTypeDiet());
     }
 
    public void Show_Ration_OnDay(){     // показ всех продуктов используемых в дневном рационе
@@ -62,15 +62,6 @@ public class DietPlan {
 
     void Explanations_of_intermittent_fasting() // небольшой список советов
     {
-        PlanHandler regular = new RegularPlan();
-        PlanHandler plan0 = new Plan0();
-        PlanHandler plan8 = new Plan8();
-        PlanHandler plan4 = new Plan4();
-
-        regular.setNext(plan8);
-        plan8.setNext(plan4);
-        plan4.setNext(plan0);
-
-        regular.Explain(_Type_Diet);
+        handler.Explain(person.getTypeDiet());
     }
 }

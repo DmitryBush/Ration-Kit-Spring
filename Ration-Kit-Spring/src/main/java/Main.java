@@ -24,10 +24,11 @@ public class Main
     static Scanner _scanner = new Scanner(System.in);
     public static Human mainHuman;    // создаём параметры пользователя для которого нужна диета
     public static DietPlan _diet_plan;    // план питания на день
-    static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
 
     public static void main(String[] args)
     {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
+
         mainHuman = context.getBean(Human.class);
         Enter_Data_For_Person();
 
@@ -36,6 +37,7 @@ public class Main
         _diet_plan.Create_Day_Diet();
 
         _diet_plan.Show_Ration_OnDay();
+        context.close();
     }
 
     private static void Enter_Data_For_Person()   // ввод всех необходимых данных о человеке
@@ -80,10 +82,7 @@ public class Main
                 activityCoefficient = 1.8f;
                 break;
         }
-
-        mainHuman = context.getBean(Human.class);
         mainHuman.SetHumanParametres(age,height,weight,activityCoefficient,gender,dietplane);
-
     }
 
     private static Object EnterFromKeyboard(String message, String datatype)

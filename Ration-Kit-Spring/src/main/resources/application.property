@@ -5,3 +5,4 @@ ration-kit.database.password=postgres
 ration-kit.sql.basicProducts=select * from products where basic = true
 ration-kit.sql.garnishProducts=select * from products where garnish = true
 ration-kit.sql.additionProducts=select * from products where adition = true
+ration-kit.database.poolSize=5

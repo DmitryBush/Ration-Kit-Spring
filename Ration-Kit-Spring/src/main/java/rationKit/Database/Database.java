@@ -1,6 +1,8 @@
 package rationKit.Database;
 
 import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rationKit.ForProducts.Product.Builder.BuilderProductClass;
 import rationKit.ForProducts.Product.Original;
 import rationKit.ForProducts.Product.Product;
@@ -8,8 +10,11 @@ import rationKit.ForProducts.Product.TypeProduct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Proxy;
 import java.sql.*;
 import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 @Component("db")
 public class Database implements IDatabase
@@ -21,8 +26,10 @@ public class Database implements IDatabase
     @Value("${ration-kit.database.password}")
     private String password;
 
-    Properties authorization;
-    Connection connection;
+    @Value("${ration-kit.database.poolSize}")
+    private int poolSize;
+    private BlockingQueue<Connection> pool;
+
 
     @PostConstruct
     public void init()
@@ -30,28 +37,53 @@ public class Database implements IDatabase
         try
         {
             Class.forName("org.postgresql.Driver");
-            Connect();
+            initConnectionPool();
         }
-        catch (ClassNotFoundException | SQLException e)
-        {
+        catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
-    private void Connect() throws SQLException
+
+    private void initConnectionPool()
     {
-        authorization = new Properties();
+        pool = new ArrayBlockingQueue<>(poolSize);
+
+        for (int i = 0; i < poolSize; i++) {
+            var proxyConnection = Proxy.newProxyInstance(Database.class.getClassLoader(),
+                    new Class[]{Connection.class},
+                    ((proxy, method, args) -> method.getName().equals("close") ? pool.add((Connection) proxy)
+                            : method.invoke(Connect(), args)));
+            pool.add((Connection) proxyConnection);
+        }
+    }
+
+    private Connection Connect() {
+        var authorization = new Properties();
         authorization.put("user", user);
         authorization.put("password", password);
 
-        connection = DriverManager.getConnection(url, authorization);
+        try {
+            return DriverManager.getConnection(url, authorization);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private Connection getConnection()
+    {
+        try {
+            return pool.take();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
     public List<Product> GetData(String sql)
     {
-        try (Statement _statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_UPDATABLE))
+        List<Product> list = new LinkedList<>();
+        try (Connection connect = getConnection();
+             Statement _statement = connect.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_UPDATABLE);
+             var table = _statement.executeQuery(sql))
         {
-            var table = _statement.executeQuery(sql);
-            List<Product> list = new LinkedList<>();
             table.beforeFirst();
             while (table.next())
             {
@@ -65,8 +97,6 @@ public class Database implements IDatabase
                         .SetCarbohydrates(table.getFloat("carbonohydrates"))
                         .SetMaxGramm(table.getInt("max_count")).BuildProduct());
             }
-            table.close();
-            _statement.close();
             return list;
         }
         catch (SQLException e)

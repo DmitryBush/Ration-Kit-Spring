@@ -17,11 +17,15 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    implementation("org.springframework:spring-context:6.1.6")
+
+    implementation("org.springframework:spring-context:6.1.14")
     implementation("org.postgresql:postgresql:42.7.3")
     implementation("org.springframework:spring-aop:6.1.6")
-    implementation("org.springframework:spring-core: 6.1.6")
-    implementation("org.springframework:spring-beans: 6.1.6")
+    implementation("org.springframework:spring-core:6.1.14")
+    implementation("org.springframework:spring-beans:6.1.14")
+    implementation("org.slf4j:slf4j-api:2.0.16")
+    implementation("ch.qos.logback:logback-classic:1.5.15")
+
 
     implementation("jakarta.annotation:jakarta.annotation-api:3.0.0")
 
